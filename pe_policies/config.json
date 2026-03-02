@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "pre_flight": {
+    "version": 1,
+    "guardrails": [
+      { "name": "Contains PII", "config": { "entities": ["CREDIT_CARD", "EMAIL_ADDRESS", "US_SSN", "..." ], "block": true }},
+      { "name": "Moderation", "config": { "categories": ["sexual", "hate", "violence", "..."] }}
+    ]
+  },
+  "input": {
+    "version": 1,
+    "guardrails": [
+      { "name": "Jailbreak", "config": { "confidence_threshold": 0.7, "model": "mercury-2" }},
+      { "name": "Off Topic Prompts", "config": { "confidence_threshold": 0.7, "model": "mercury-2", "system_prompt_details": "..." }}
+      
+    ]
+  },
+  "output": {
+    "version": 1,
+    "guardrails": [
+      { "name": "Contains PII", "config": { "entities": ["CREDIT_CARD", "EMAIL_ADDRESS", "..."], "block": true }}
+    ]
+  }
+}
