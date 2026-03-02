@@ -3,22 +3,65 @@
   "pre_flight": {
     "version": 1,
     "guardrails": [
-      { "name": "Contains PII", "config": { "entities": ["CREDIT_CARD", "EMAIL_ADDRESS", "US_SSN", "..." ], "block": true }},
-      { "name": "Moderation", "config": { "categories": ["sexual", "hate", "violence", "..."] }}
+      {
+        "name": "Contains PII",
+        "config": {
+          "entities": [
+            "PERSON",
+            "EMAIL_ADDRESS",
+            "PHONE_NUMBER",
+            "LOCATION",
+            "CREDIT_CARD",
+            "IN_AADHAAR",
+            "IN_PAN",
+            "IN_PASSPORT"
+          ],
+          "block": true
+        }
+      },
+      {
+        "name": "Moderation",
+        "config": {
+          "categories": ["sexual", "hate", "violence", "self_harm"]
+        }
+      }
     ]
   },
   "input": {
     "version": 1,
     "guardrails": [
-      { "name": "Jailbreak", "config": { "confidence_threshold": 0.7, "model": "mercury-2" }},
-      { "name": "Off Topic Prompts", "config": { "confidence_threshold": 0.7, "model": "mercury-2", "system_prompt_details": "..." }}
-      
+      {
+        "name": "Jailbreak",
+        "config": {
+          "confidence_threshold": 0.7,
+          "model": "mercury-2"
+        }
+      },
+      {
+        "name": "Off Topic Prompts",
+        "config": {
+          "confidence_threshold": 0.7,
+          "model": "mercury-2",
+          "system_prompt_details": "Private equity investment assistant. Only finance & business questions allowed."
+        }
+      }
     ]
   },
   "output": {
     "version": 1,
     "guardrails": [
-      { "name": "Contains PII", "config": { "entities": ["CREDIT_CARD", "EMAIL_ADDRESS", "..."], "block": true }}
+      {
+        "name": "Contains PII",
+        "config": {
+          "entities": [
+            "PERSON",
+            "EMAIL_ADDRESS",
+            "PHONE_NUMBER",
+            "CREDIT_CARD"
+          ],
+          "block": true
+        }
+      }
     ]
   }
 }
