@@ -22,7 +22,7 @@
       {
         "name": "Moderation",
         "config": {
-          "categories": ["sexual", "hate", "violence", "self_harm"]
+          "categories": ["sexual", "hate", "violence", "self-harm"]
         }
       }
     ]
