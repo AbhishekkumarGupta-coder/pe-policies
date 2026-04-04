@@ -1,4 +1,4 @@
-{
+PE_FIRM_POLICY = {
   "version": 1,
   "pre_flight": {
     "version": 1,
@@ -7,22 +7,38 @@
         "name": "Contains PII",
         "config": {
           "entities": [
-            "PERSON",
-            "EMAIL_ADDRESS",
-            "PHONE_NUMBER",
-            "LOCATION",
             "CREDIT_CARD",
-            "IN_AADHAAR",
-            "IN_PAN",
-            "IN_PASSPORT"
+            "CVV",
+            "CRYPTO",
+            "EMAIL_ADDRESS",
+            "IBAN_CODE",
+            "BIC_SWIFT",
+            "IP_ADDRESS",
+            "MEDICAL_LICENSE",
+            "PHONE_NUMBER",
+            "US_SSN"
           ],
-          "block": true
+          "block": True
         }
       },
       {
         "name": "Moderation",
         "config": {
-          "categories": ["sexual", "hate", "violence", "self-harm"]
+          "categories": [
+            "sexual",
+            "sexual/minors",
+            "hate",
+            "hate/threatening",
+            "harassment",
+            "harassment/threatening",
+            "self-harm",
+            "self-harm/intent",
+            "self-harm/instructions",
+            "violence",
+            "violence/graphic",
+            "illicit",
+            "illicit/violent"
+          ]
         }
       }
     ]
@@ -34,15 +50,17 @@
         "name": "Jailbreak",
         "config": {
           "confidence_threshold": 0.7,
-          "model": "mercury-2"
+          "model": "gemma-4-26b-a4b-it",  # ← Fixed!
+          "include_reasoning": False
         }
       },
       {
         "name": "Off Topic Prompts",
         "config": {
           "confidence_threshold": 0.7,
-          "model": "mercury-2",
-          "system_prompt_details": "Private equity investment assistant. Only finance & business questions allowed."
+          "model": "gemma-4-26b-a4b-it",  # ← Fixed!
+          "system_prompt_details": "You are the front-desk assistant for a Private Equity firm. You help with deal screening, portfolio company performance, investor relations, fund performance, due diligence, and M&A activities. Reject queries unrelated to private equity operations.",
+          "include_reasoning": False
         }
       }
     ]
@@ -54,14 +72,22 @@
         "name": "Contains PII",
         "config": {
           "entities": [
-            "PERSON",
+            "CREDIT_CARD",
+            "CVV",
+            "CRYPTO",
             "EMAIL_ADDRESS",
-            "PHONE_NUMBER",
-            "CREDIT_CARD"
+            "IBAN_CODE",
+            "BIC_SWIFT",
+            "IP_ADDRESS",
+            "PHONE_NUMBER"
           ],
-          "block": true
+          "block": True
         }
       }
     ]
   }
 }
+
+print("Policy defined:")
+print(f"  Input guardrails: {[g['name'] for g in PE_FIRM_POLICY['input']['guardrails']]}")
+print(f"  Output guardrails: {[g['name'] for g in PE_FIRM_POLICY['output']['guardrails']]}")
